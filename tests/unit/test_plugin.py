@@ -22,8 +22,42 @@ def plugin_run():
     return _plugin_run
 
 
-def test(plugin_run):
-    """Test wrong case."""
+@pytest.mark.parametrize('variation', [
+    'override',
+    'typing.override',
+    't.override',
+])
+def test_valid(plugin_run, variation):
+    """Test valid case."""
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    @{0}'.format(variation),
+        '    def move(self, to_x: int, to_y: int):',
+        '        # Some logic for change coordinates',
+        '        pass',
+        '',
+        '    @{0}'.format(variation),
+        '    def sound(self):',
+        '        print("Abstract animal sound")',
+        '',
+    ]))
+
+    assert not got
+
+
+@pytest.mark.skip
+def test_with_attribute():
+    assert False
+
+
+@pytest.mark.skip
+@pytest.mark.parametrize('deco', ['staticmethod', 'classmethod'])
+def test_runtime_decorators(deco):
+    assert False
+
+
+def test_wrong(plugin_run):
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
@@ -37,4 +71,6 @@ def test(plugin_run):
     ]))
 
     assert got == [
+        (3, 4, 'OVRD: method must contain `typing.override` decorator'),
+        (7, 4, 'OVRD: method must contain `typing.override` decorator')
     ]
