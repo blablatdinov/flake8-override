@@ -90,10 +90,24 @@ def test_runtime_decorators(deco, plugin_run):
     assert not got
 
 
-@pytest.mark.skip
-@pytest.mark.parametrize('deco', ['staticmethod', 'classmethod'])
-def test_init(deco):
-    assert False
+def test_init(plugin_run):
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    def __init__(self, x, y):',
+        '        self.x = x',
+        '        self.y = y',
+        '',
+        '    def move(self, to_x: int, to_y: int):',
+        '        # Some logic for change coordinates',
+        '        pass',
+        '',
+        '    def sound(self):',
+        '        print("Abstract animal sound")',
+        '',
+    ]))
+
+    assert not got
 
 
 def test_wrong(plugin_run):

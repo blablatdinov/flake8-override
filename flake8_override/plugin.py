@@ -18,7 +18,8 @@ class ClassVisitor(ast.NodeVisitor):
         for elem in node.body:
             if not isinstance(elem, ast.FunctionDef):
                 continue
-            # pprint(elem)
+            if elem.name == '__init__':
+                break
             is_class_or_static_method = False
             for deco in elem.decorator_list:
                 print(is_class_or_static_method)
