@@ -46,14 +46,36 @@ def test_valid(plugin_run, variation):
     assert not got
 
 
-@pytest.mark.skip
-def test_with_attribute():
-    assert False
+def test_with_attribute(plugin_run):
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    x: int',
+        '    y = 0',
+        '',
+        '    @override',
+        '    def move(self, to_x: int, to_y: int):',
+        '        # Some logic for change coordinates',
+        '        pass',
+        '',
+        '    @override',
+        '    def sound(self):',
+        '        print("Abstract animal sound")',
+        '',
+    ]))
+
+    assert not got
 
 
 @pytest.mark.skip
 @pytest.mark.parametrize('deco', ['staticmethod', 'classmethod'])
 def test_runtime_decorators(deco):
+    assert False
+
+
+@pytest.mark.skip
+@pytest.mark.parametrize('deco', ['staticmethod', 'classmethod'])
+def test_init(deco):
     assert False
 
 
