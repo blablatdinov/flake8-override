@@ -23,7 +23,7 @@
 import ast
 from typing import final
 from collections.abc import Generator
-from astpretty import pprint
+# from astpretty import pprint
 
 
 @final
@@ -44,14 +44,14 @@ class ClassVisitor(ast.NodeVisitor):
                 break
             is_class_or_static_method = False
             for deco in elem.decorator_list:
-                print(is_class_or_static_method)
+                # print(is_class_or_static_method)
                 if is_class_or_static_method:
                     break
                 if isinstance(deco, ast.Attribute):
                     if deco.attr in available_decorators:
                         break
                 elif isinstance(deco, ast.Name):
-                    pprint(deco)
+                    # pprint(deco)
                     # print(deco.id in {'classmethod', 'staticmethod'})
                     if deco.id in available_decorators:
                         break
@@ -76,4 +76,4 @@ class Plugin:
         visitor = ClassVisitor()
         visitor.visit(self._tree)
         for line in visitor.problems:  # noqa: WPS526
-            yield (line[0], line[1], 'OVRD: method must contain `typing.override` decorator', type(self))
+            yield (line[0], line[1], 'OVR100: method must contain `typing.override` decorator', type(self))

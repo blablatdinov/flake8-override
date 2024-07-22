@@ -48,6 +48,7 @@ def plugin_run():
     'override',
     'typing.override',
     't.override',
+    'typing_extensions.override',
 ])
 def test_valid(plugin_run, variation):
     """Test valid case."""
@@ -146,8 +147,8 @@ def test_wrong(plugin_run):
     ]))
 
     assert got == [
-        (3, 4, 'OVRD: method must contain `typing.override` decorator'),
-        (7, 4, 'OVRD: method must contain `typing.override` decorator')
+        (3, 4, 'OVR100: method must contain `typing.override` decorator'),
+        (7, 4, 'OVR100: method must contain `typing.override` decorator')
     ]
 
 
@@ -168,6 +169,6 @@ def test_wrong_other_deco(plugin_run):
     ]))
 
     assert got == [
-        (4, 4, 'OVRD: method must contain `typing.override` decorator'),
-        (9, 4, 'OVRD: method must contain `typing.override` decorator')
+        (4, 4, 'OVR100: method must contain `typing.override` decorator'),
+        (9, 4, 'OVR100: method must contain `typing.override` decorator')
     ]

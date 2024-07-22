@@ -20,8 +20,11 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.12"
-flake8 = "^7.1"
+python = "^3.9"
+flake8 = ">=5.0.0"
+
+[tool.poetry.plugins."flake8.extension"]
+OVR = "flake8_override.plugin:Plugin"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.11.0"
