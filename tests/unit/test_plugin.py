@@ -67,10 +67,27 @@ def test_with_attribute(plugin_run):
     assert not got
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize('deco', ['staticmethod', 'classmethod'])
-def test_runtime_decorators(deco):
-    assert False
+def test_runtime_decorators(deco, plugin_run):
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    @{0}'.format(deco),
+        '    def secondary_ctor(cls):',
+        '        return cls()',
+        '',
+        '    @override',
+        '    def move(self, to_x: int, to_y: int):',
+        '        # Some logic for change coordinates',
+        '        pass',
+        '',
+        '    @override',
+        '    def sound(self):',
+        '        print("Abstract animal sound")',
+        '',
+    ]))
+
+    assert not got
 
 
 @pytest.mark.skip
@@ -95,4 +112,26 @@ def test_wrong(plugin_run):
     assert got == [
         (3, 4, 'OVRD: method must contain `typing.override` decorator'),
         (7, 4, 'OVRD: method must contain `typing.override` decorator')
+    ]
+
+
+
+def test_wrong_other_deco(plugin_run):
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    @cache',
+        '    def move(self, to_x: int, to_y: int):',
+        '        # Some logic for change coordinates',
+        '        pass',
+        '',
+        '    @cache',
+        '    def sound(self):',
+        '        print("Abstract animal sound")',
+        '',
+    ]))
+
+    assert got == [
+        (4, 4, 'OVRD: method must contain `typing.override` decorator'),
+        (9, 4, 'OVRD: method must contain `typing.override` decorator')
     ]

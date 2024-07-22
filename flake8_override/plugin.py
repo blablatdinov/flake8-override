@@ -1,6 +1,7 @@
 import ast
 from typing import final
 from collections.abc import Generator
+from astpretty import pprint
 
 
 @final
@@ -17,13 +18,25 @@ class ClassVisitor(ast.NodeVisitor):
         for elem in node.body:
             if not isinstance(elem, ast.FunctionDef):
                 continue
+            # pprint(elem)
+            is_class_or_static_method = False
             for deco in elem.decorator_list:
-                if isinstance(deco, ast.Attribute) and deco.attr in available_decorators:
+                print(is_class_or_static_method)
+                if is_class_or_static_method:
                     break
-                elif isinstance(deco, ast.Name) and deco.id in available_decorators:
-                    break
+                if isinstance(deco, ast.Attribute):
+                    if deco.attr in available_decorators:
+                        break
+                elif isinstance(deco, ast.Name):
+                    pprint(deco)
+                    # print(deco.id in {'classmethod', 'staticmethod'})
+                    if deco.id in available_decorators:
+                        break
+                    elif deco.id in {'classmethod', 'staticmethod'}:
+                        is_class_or_static_method = True
             else:
-                self.problems.append((elem.lineno, elem.col_offset))
+                if not is_class_or_static_method:
+                    self.problems.append((elem.lineno, elem.col_offset))
         self.generic_visit(node)
 
 
