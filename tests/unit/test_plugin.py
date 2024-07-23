@@ -21,7 +21,11 @@
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
 import ast
-from typing import Callable, TypeAlias
+from typing import Callable
+try:
+    from typing import TypeAlias
+except ImportError:
+    from typing_extensions import TypeAlias
 
 import pytest
 
