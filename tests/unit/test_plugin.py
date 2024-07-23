@@ -20,13 +20,15 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
+# flake8: noqa: WPS433
+
 import ast
 from typing import Callable
 
 try:
-    from typing import TypeAlias  # noqa: WPS433
+    from typing import TypeAlias  # type: ignore [attr-defined]
 except ImportError:
-    from typing_extensions import TypeAlias  # noqa: WPS433, WPS440
+    from typing_extensions import TypeAlias  # noqa: WPS440
 
 import pytest
 
