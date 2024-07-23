@@ -38,6 +38,22 @@ class ClassVisitor(ast.NodeVisitor):
     def visit_ClassDef(self, node: ast.ClassDef) -> None:  # noqa: N802, WPS231, C901
         """Visit by classes."""
         available_decorators = {'override', 'typing.override', 't.override'}
+        for base in node.bases:
+            if isinstance(base, ast.Subscript):
+                if isinstance(base.value, ast.Name) and base.value.id == 'Protocol':
+                    self.generic_visit(node)
+                    return
+            if isinstance(base, ast.Subscript):
+                if isinstance(base.value, ast.Name) and base.value.id != 'Protocol':
+                    continue
+            if isinstance(base, ast.Name) and base.id != 'Protocol':
+                continue
+            if isinstance(base, ast.Name) and base.id == 'Protocol':
+                self.generic_visit(node)
+                return
+            if base.attr == 'Protocol':
+                self.generic_visit(node)
+                return
         for elem in node.body:
             if not isinstance(elem, ast.FunctionDef):
                 continue
@@ -74,4 +90,4 @@ class Plugin:
         visitor = ClassVisitor()
         visitor.visit(self._tree)
         for line in visitor.problems:  # noqa: WPS526
-            yield (line[0], line[1], 'OVR100: method must contain `typing.override` decorator', type(self))
+            yield (line[0], line[1], 'OVR100 method must contain `typing.override` decorator', type(self))
