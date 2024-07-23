@@ -26,7 +26,7 @@ import ast
 from typing import Callable
 
 try:
-    from typing import TypeAlias  # type: ignore [attr-defined]
+    from typing import TypeAlias  # type: ignore [attr-defined, unused-ignore]
 except ImportError:
     from typing_extensions import TypeAlias  # noqa: WPS440
 
