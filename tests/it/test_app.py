@@ -40,7 +40,7 @@ def current_dir() -> Path:
 @pytest.fixture(scope='module')
 def _test_dir(tmpdir_factory: TempdirFactory, current_dir: str) -> Generator[None, None, None]:
     tmp_path = tmpdir_factory.mktemp('test')
-    copy2(Path('tests/fixtures/file.py'), tmp_path / 'file.py')
+    copy2(Path('tests/fixtures/file.py.txt'), tmp_path / 'file.py')
     os.chdir(tmp_path)
     subprocess.run(['python', '-m', 'venv', 'venv'], check=True)
     subprocess.run(['venv/bin/pip', 'install', 'pip', '-U'], check=True)
