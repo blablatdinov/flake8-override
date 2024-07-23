@@ -20,10 +20,11 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
+# flake8: noqa: WPS232
+
 import ast
-from typing import final
 from collections.abc import Generator
-# from astpretty import pprint
+from typing import final
 
 
 @final
@@ -34,7 +35,7 @@ class ClassVisitor(ast.NodeVisitor):
         """Ctor."""
         self.problems: list[tuple[int, int]] = []
 
-    def visit_ClassDef(self, node) -> None:
+    def visit_ClassDef(self, node: ast.ClassDef) -> None:  # noqa: N802, WPS231, C901
         """Visit by classes."""
         available_decorators = {'override', 'typing.override', 't.override'}
         for elem in node.body:
@@ -44,15 +45,12 @@ class ClassVisitor(ast.NodeVisitor):
                 break
             is_class_or_static_method = False
             for deco in elem.decorator_list:
-                # print(is_class_or_static_method)
                 if is_class_or_static_method:
                     break
                 if isinstance(deco, ast.Attribute):
                     if deco.attr in available_decorators:
                         break
                 elif isinstance(deco, ast.Name):
-                    # pprint(deco)
-                    # print(deco.id in {'classmethod', 'staticmethod'})
                     if deco.id in available_decorators:
                         break
                     elif deco.id in {'classmethod', 'staticmethod'}:
@@ -67,7 +65,7 @@ class ClassVisitor(ast.NodeVisitor):
 class Plugin:
     """Flake8 plugin."""
 
-    def __init__(self, tree) -> None:
+    def __init__(self, tree: ast.AST) -> None:
         """Ctor."""
         self._tree = tree
 

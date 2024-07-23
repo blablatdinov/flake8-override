@@ -21,14 +21,19 @@
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
 import ast
+from typing import Callable, TypeAlias
 
 import pytest
 
 from flake8_override.plugin import Plugin
 
+_PLUGIN_RUN_T: TypeAlias = Callable[
+    [str], list[tuple[int, int, str]],
+]
+
 
 @pytest.fixture
-def plugin_run():
+def plugin_run() -> _PLUGIN_RUN_T:
     """Fixture for easy run plugin."""
     def _plugin_run(code: str) -> list[tuple[int, int, str]]:  # noqa: WPS430
         """Plugin run result."""
@@ -50,7 +55,7 @@ def plugin_run():
     't.override',
     'typing_extensions.override',
 ])
-def test_valid(plugin_run, variation):
+def test_valid(plugin_run: _PLUGIN_RUN_T, variation: str) -> None:
     """Test valid case."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
@@ -69,7 +74,8 @@ def test_valid(plugin_run, variation):
     assert not got
 
 
-def test_with_attribute(plugin_run):
+def test_with_attribute(plugin_run: _PLUGIN_RUN_T) -> None:
+    """Test class with attributes."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
@@ -91,7 +97,8 @@ def test_with_attribute(plugin_run):
 
 
 @pytest.mark.parametrize('deco', ['staticmethod', 'classmethod'])
-def test_runtime_decorators(deco, plugin_run):
+def test_runtime_decorators(deco: str, plugin_run: _PLUGIN_RUN_T) -> None:
+    """Test class/static methdods."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
@@ -113,7 +120,8 @@ def test_runtime_decorators(deco, plugin_run):
     assert not got
 
 
-def test_init(plugin_run):
+def test_init(plugin_run: _PLUGIN_RUN_T) -> None:
+    """Test skip init dunder method."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
@@ -133,7 +141,8 @@ def test_init(plugin_run):
     assert not got
 
 
-def test_wrong(plugin_run):
+def test_wrong(plugin_run: _PLUGIN_RUN_T) -> None:
+    """Test non overrided methods."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
@@ -148,12 +157,12 @@ def test_wrong(plugin_run):
 
     assert got == [
         (3, 4, 'OVR100: method must contain `typing.override` decorator'),
-        (7, 4, 'OVR100: method must contain `typing.override` decorator')
+        (7, 4, 'OVR100: method must contain `typing.override` decorator'),
     ]
 
 
-
-def test_wrong_other_deco(plugin_run):
+def test_wrong_other_deco(plugin_run: _PLUGIN_RUN_T) -> None:
+    """Test methods with other decorator."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
@@ -170,5 +179,5 @@ def test_wrong_other_deco(plugin_run):
 
     assert got == [
         (4, 4, 'OVR100: method must contain `typing.override` decorator'),
-        (9, 4, 'OVR100: method must contain `typing.override` decorator')
+        (9, 4, 'OVR100: method must contain `typing.override` decorator'),
     ]

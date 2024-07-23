@@ -29,9 +29,9 @@ class Animal(object):
     y = 0
 
     @override
-    def move(self, to_x: int, to_y: int):
+    def move(self, to_x: int, to_y: int) -> None:
         # Some logic for change coordinates
         pass
 
-    def sound(self):
+    def sound(self) -> None:
         print("Abstract animal sound")

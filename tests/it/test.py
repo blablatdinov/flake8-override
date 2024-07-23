@@ -20,21 +20,17 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
 
+# flake8: noqa: S . Not a production code
+
 import os
 import subprocess
-import zipfile
 from collections.abc import Generator
 from pathlib import Path
-from typing import Callable
-from unittest.mock import patch
 from shutil import copy2
 
 import pytest
 from _pytest.legacypath import TempdirFactory
-from click.testing import CliRunner
-from typing_extensions import TypeAlias
-from pathlib import Path
-import pytest
+
 
 @pytest.fixture(scope='module')
 def current_dir() -> Path:
