@@ -22,10 +22,11 @@
 
 import ast
 from typing import Callable
+
 try:
-    from typing import TypeAlias
+    from typing import TypeAlias  # noqa: WPS433
 except ImportError:
-    from typing_extensions import TypeAlias
+    from typing_extensions import TypeAlias  # noqa: WPS433, WPS440
 
 import pytest
 
