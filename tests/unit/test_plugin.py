@@ -163,8 +163,8 @@ def test_wrong(plugin_run: _PLUGIN_RUN_T) -> None:
     ]))
 
     assert got == [
-        (3, 4, 'OVR100: method must contain `typing.override` decorator'),
-        (7, 4, 'OVR100: method must contain `typing.override` decorator'),
+        (3, 4, 'OVR100 method must contain `typing.override` decorator'),
+        (7, 4, 'OVR100 method must contain `typing.override` decorator'),
     ]
 
 
@@ -185,6 +185,25 @@ def test_wrong_other_deco(plugin_run: _PLUGIN_RUN_T) -> None:
     ]))
 
     assert got == [
-        (4, 4, 'OVR100: method must contain `typing.override` decorator'),
-        (9, 4, 'OVR100: method must contain `typing.override` decorator'),
+        (4, 4, 'OVR100 method must contain `typing.override` decorator'),
+        (9, 4, 'OVR100 method must contain `typing.override` decorator'),
     ]
+
+
+@pytest.mark.parametrize('base_class', [
+    'Protocol',
+    'Protocol[str]',
+    'typing.Protocol',
+    't.Protocol',
+    'typing_extensions.Protocol',
+])
+def test_ignore_protocol(base_class: str, plugin_run: _PLUGIN_RUN_T) -> None:
+    got = plugin_run('\n'.join([
+        'class Animal({0}):'.format(base_class),
+        '',
+        '    def move(self, to_x: int, to_y: int): ...',
+        '    def sound(self): ...',
+        '',
+    ]))
+
+    assert not got
