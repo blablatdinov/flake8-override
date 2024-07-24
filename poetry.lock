@@ -12,6 +12,17 @@ files = [
 ]
 
 [[package]]
+name = "astpretty"
+version = "3.0.0"
+description = "Pretty print the output of python stdlib `ast.parse`."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "astpretty-3.0.0-py2.py3-none-any.whl", hash = "sha256:15bfd47593667169485a1fa7938b8de9445b11057d6f2b6e214b2f70667f94b6"},
+    {file = "astpretty-3.0.0.tar.gz", hash = "sha256:b08c95f32e5994454ea99882ff3c4a0afc8254c38998a0ed4b479dba448dc581"},
+]
+
+[[package]]
 name = "attrs"
 version = "23.2.0"
 description = "Classes Without Boilerplate"
@@ -918,4 +929,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "142e1693801258f54a7bcdc2a8e1194afb33459322519276aeec7c623b3920d7"
+content-hash = "8fa90136be7889b748701f49b8e3ae63ed3f6b52a6299f34b2ed156d6aad28f0"

@@ -197,7 +197,7 @@ def test_wrong_other_deco(plugin_run: _PLUGIN_RUN_T) -> None:
     't.Protocol',
     'typing_extensions.Protocol',
 ])
-def test_ignore_protocol(base_class, plugin_run):
+def test_ignore_protocol(base_class: str, plugin_run: _PLUGIN_RUN_T) -> None:
     got = plugin_run('\n'.join([
         'class Animal({0}):'.format(base_class),
         '',

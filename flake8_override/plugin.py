@@ -51,7 +51,7 @@ class ClassVisitor(ast.NodeVisitor):
             if isinstance(base, ast.Name) and base.id == 'Protocol':
                 self.generic_visit(node)
                 return
-            if base.attr == 'Protocol':
+            if isinstance(base, ast.Attribute) and base.attr == 'Protocol':
                 self.generic_visit(node)
                 return
         for elem in node.body:
