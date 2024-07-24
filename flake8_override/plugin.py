@@ -55,7 +55,7 @@ class ClassVisitor(ast.NodeVisitor):
                 self.generic_visit(node)
                 return
         for elem in node.body:
-            if not isinstance(elem, ast.FunctionDef):
+            if not isinstance(elem, ast.FunctionDef) and not isinstance(elem, ast.AsyncFunctionDef):
                 continue
             if elem.name == '__init__':
                 break
