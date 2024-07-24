@@ -224,3 +224,22 @@ def test_private_methods(plugin_run: _PLUGIN_RUN_T) -> None:
     ]))
 
     assert not got
+
+
+def test_async(plugin_run: _PLUGIN_RUN_T) -> None:
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    @override',
+        '    async def move(self, to_x: int, to_y: int):',
+        '        # Some logic for change coordinates',
+        '        pass',
+        '',
+        '    async def sound(self):',
+        '        print("Abstract animal sound")',
+        '',
+    ]))
+
+    assert got == [
+        (8, 4, 'OVR100 method must contain `typing.override` decorator'),
+    ]
