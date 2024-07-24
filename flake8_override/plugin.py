@@ -59,6 +59,8 @@ class ClassVisitor(ast.NodeVisitor):
                 continue
             if elem.name == '__init__':
                 break
+            if elem.name.startswith('_'):
+                break
             is_class_or_static_method = False
             for deco in elem.decorator_list:
                 if is_class_or_static_method:
