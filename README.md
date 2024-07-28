@@ -5,29 +5,59 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/flake8-override.svg)](https://pypi.org/project/flake8-override/)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 
-This is how python package should look like!
+`flake8-override` is a Flake8 plugin designed to enforce a coding standard where every method in a class must have the @override decorator. This ensures that all public methods implement their counterparts from an interface, promoting better design practices, easier mocking in unit tests, and simpler extension via decoration.
 
-## Features
-
-- Fully typed with annotations and checked with mypy, [PEP561 compatible](https://www.python.org/dev/peps/pep-0561/)
-- Add yours!
+[Seven Virtues of a Good Object. Part 2](https://www.yegor256.com/2014/11/20/seven-virtues-of-good-object.html#2-he-works-by-contracts)
 
 ## Installation
+
+You can install flake8-override via pip:
 
 ```bash
 pip install flake8-override
 ```
 
+## Usage
+
+To use flake8-override, simply include it in your Flake8 configuration. You can run Flake8 as usual, and the plugin will check for the presence of the @override decorator on each method.
+
+```bash
+flake8 your_code_directory
+```
+
 ## Example
 
-Showcase how your project can be used:
+### Input code
 
 ```python
-from flake8_override.example import some_function
+class Dog:
 
-print(some_function(3, 4))
-# => 7
+    def sound(self):
+        print('bark')
 ```
+
+### Expected code
+
+```python
+from typing import Protocol, override
+
+class Animal(Protocol):
+
+    def sount(self): ...
+
+class Dog(Animal):
+
+    @override
+    def sound(self):
+        print('bark')
+```
+
+## Rationale
+
+The primary motivation for this plugin is to ensure that objects adhere to contracts as specified by interfaces. This has two main benefits:
+
+- Easier Mocking in Unit Tests: Objects that work by contract are easier to mock in unit tests because their behavior is predictable and defined by interfaces.
+- Simpler Extension via Decoration: Objects designed with clear contracts are easier to extend and decorate, promoting better software design and maintenance.
 
 ## License
 
