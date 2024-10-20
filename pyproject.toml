@@ -27,7 +27,7 @@ flake8 = ">=5.0.0"
 OVR = "flake8_override.plugin:Plugin"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "1.12.0"
+mypy = "1.12.1"
 
 wemake-python-styleguide = "0.19.2"
 flake8-pytest-style = "2.0.0"
