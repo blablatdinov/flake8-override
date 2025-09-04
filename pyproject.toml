@@ -31,7 +31,7 @@ mypy = "1.17.1"
 
 wemake-python-styleguide = "0.19.2"
 flake8-pytest-style = "2.1.0"
-pytest = "8.4.1"
+pytest = "8.4.2"
 pytest-cov = "6.2.1"
 pytest-randomly = "3.16.0"
 astpretty = "3.0.0"
