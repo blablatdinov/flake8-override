@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "flake8-override"
 description = "This is how python package should look like!"
-version = "0.0.4"
+version = "0.1.0"
 license = "MIT"
 
 authors = []
