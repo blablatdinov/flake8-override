@@ -58,7 +58,7 @@ class ClassVisitor(ast.NodeVisitor):
             if not isinstance(elem, ast.FunctionDef) and not isinstance(elem, ast.AsyncFunctionDef):
                 continue
             if elem.name == '__init__':
-                break
+                continue
             if elem.name.startswith('_'):
                 break
             is_class_or_static_method = False

@@ -145,7 +145,10 @@ def test_init(plugin_run: _PLUGIN_RUN_T) -> None:
         '',
     ]))
 
-    assert not got
+    assert got == [
+        (7, 4, 'OVR100 method must contain `typing.override` decorator'),
+        (11, 4, 'OVR100 method must contain `typing.override` decorator'),
+    ]
 
 
 def test_wrong(plugin_run: _PLUGIN_RUN_T) -> None:
