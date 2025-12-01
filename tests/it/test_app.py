@@ -51,7 +51,7 @@ def _test_dir(tmpdir_factory: TempdirFactory, current_dir: str) -> Generator[Non
 
 @pytest.mark.usefixtures('_test_dir')
 @pytest.mark.parametrize('version', [
-    ('flake8==5.0.0',),
+    ('flake8==7.0.0',),
     ('flake8', '-U'),
 ])
 def test_dependency_versions(version: tuple[str]) -> None:

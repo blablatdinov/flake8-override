@@ -216,3 +216,7 @@ fabric.properties
 
 # pyenv
 .python-version
+
+# Deltaver cache
+
+.deltaver_cache
