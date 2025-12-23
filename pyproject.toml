@@ -29,7 +29,7 @@ OVR = "flake8_override.plugin:Plugin"
 [tool.poetry.group.dev.dependencies]
 mypy = "1.19.1"
 
-wemake-python-styleguide = "1.4.0"
+wemake-python-styleguide = "1.5.0"
 pytest = "9.0.2"
 pytest-cov = "7.0.0"
 pytest-randomly = "4.0.1"
