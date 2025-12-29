@@ -59,5 +59,5 @@ def test() -> None:
 
     assert got.returncode == 1
     assert got.stdout.decode('utf-8').strip().splitlines() == [
-        'file.py:36:5: OVR100 method must contain `typing.override` decorator',
+        'file.py:17:5: OVR100 method must contain `typing.override` decorator',
     ]
