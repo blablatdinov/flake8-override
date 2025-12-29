@@ -44,7 +44,7 @@ def test_dependency_versions(version: tuple[str]) -> None:
         check=False,
     )
 
-    assert got.stdout.decode('utf-8').strip() == 'file.py:36:5: OVR100 method must contain `typing.override` decorator'
+    assert got.stdout.decode('utf-8').strip() == 'file.py:17:5: OVR100 method must contain `typing.override` decorator'
     assert got.returncode == 1
 
 
