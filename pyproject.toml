@@ -34,6 +34,10 @@ pytest = "9.1.1"
 pytest-cov = "7.1.0"
 pytest-randomly = "4.1.0"
 astpretty = "3.0.0"
+pytest-test-radar = "0.0.1a12"
+
+[tool.pytest.ini_options]
+radar_endpoint = "https://test-radar.ilaletdinov.ru"
 
 [build-system]
 requires = ["poetry-core>=1.9.0"]
