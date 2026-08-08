@@ -36,6 +36,8 @@ jobs:
         run: poetry install --no-interaction
       - name: Run tests via pytest
         run: poetry run pytest --cov=flake8_override --cov-report=term-missing:skip-covered -s -vv
+        env:
+          RADAR_TOKEN: ${{ secrets.TEST_RADAR_TOKEN }}
 
   publish-pypi:
     needs: tests
