@@ -32,7 +32,7 @@ mypy = "2.3.1"
 wemake-python-styleguide = "1.8.0"
 pytest = "9.1.1"
 pytest-cov = "7.1.0"
-pytest-randomly = "4.1.0"
+pytest-randomly = "5.0.0"
 astpretty = "3.0.0"
 pytest-test-radar = "0.0.1a12"
 
