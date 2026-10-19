@@ -227,3 +227,22 @@ def test_async(plugin_run: _PLUGIN_RUN_T) -> None:
     assert got == [
         (8, 4, 'OVR100 method must contain `typing.override` decorator'),
     ]
+
+
+@pytest.mark.parametrize('private', ['_sound', '__str__'])
+def test_public_method_after_private(plugin_run: _PLUGIN_RUN_T, private: str) -> None:
+    """Test public method declared after a private one."""
+    got = plugin_run('\n'.join([
+        'class Animal(object):',
+        '',
+        '    def {0}(self):'.format(private),
+        '        return "Animal"',
+        '',
+        '    def move(self, to_x: int, to_y: int):',
+        '        pass',
+        '',
+    ]))
+
+    assert got == [
+        (6, 4, 'OVR100 method must contain `typing.override` decorator'),
+    ]
